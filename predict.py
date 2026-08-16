@@ -1,9 +1,15 @@
+import os
+import sys
 import numpy as np
 import pandas as pd
 import joblib
 import argparse
 
-def generate_submission(model_path: str, test_path: str, output_path:str):
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "src"))
+from data.preprocess import cast_categorical_columns
+
+
+def generate_submission(model_path: str, test_path: str, output_path: str, encoder_path: str = "label_encoder.joblib"):
   print("--Loading model from path--")
   model = joblib.load(model_path)
 
@@ -14,13 +20,12 @@ def generate_submission(model_path: str, test_path: str, output_path:str):
 
   X_test  =  df_test.drop(columns =["health_condition"], errors = "ignore")
 
-  cat_cols = X_test.select_dtypes(include=['object']).columns
-  X_test[cat_cols] = X_test[cat_cols].astype('category')
+  X_test = cast_categorical_columns(X_test)
 
   print("--generating predictions--")
   y_hat = model.predict(X_test)
 
-  le = joblib.load('label_encoder.joblib')
+  le = joblib.load(encoder_path)
 
   y_hat = le.inverse_transform(y_hat)
 
@@ -46,12 +51,18 @@ if __name__ == "__main__":
     default = "xgb1.joblib",
     help = "Path to saved model file"
   )
-  parser.add_argument(  
+  parser.add_argument(
+    "--encoder_file",
+    type = str,
+    default = "label_encoder.joblib",
+    help = "Path to saved label encoder file"
+  )
+  parser.add_argument(
       "--output_file",
         type = str,
         default = "submission.csv",
         help = "Path to save submission file"  )
-    
+
 
   args = parser.parse_args()
-  generate_submission(args.model_file, args.test_data, args.output_file)
+  generate_submission(args.model_file, args.test_data, args.output_file, args.encoder_file)

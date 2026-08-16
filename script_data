@@ -1,5 +1,0 @@
-sleep_duration,heart_rate,bmi,calorie_expenditure,step_count,exercise_duration,water_intake,diet_type,stress_level,sleep_quality,physical_activity_level,smoking_alcohol,gender,health_condition
-7.65,75.2,22.98,1881.0,6995.0,50.4,2.33,veg,medium,poor,active,occasional,male,at-risk
-8.95,74.4,18.57,1940.0,10242.0,32.5,2.29,veg,low,average,active,occasional,male,fit
-6.86,90.9,23.17,2036.0,5786.0,27.2,2.5,balanced,high,poor,moderate,occasional,other,at-risk
-6.8,61.2,18.43,2247.0,12669.0,55.3,2.65,balanced,medium,good,moderate,no,male,at-risk
