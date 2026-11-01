@@ -1,4 +1,4 @@
-#Vital_Sense: Health Risk Classifier
+# Vital_Sense: Health Risk Classifier
 
 An end-to-end machine learning pipeline that sorts people into **fit**, **at-risk** or **unhealthy** from lifestyle and biometric data such as sleep, heart rate, BMI, activity, diet and stress. It is built on XGBoost and covers every stage from exploratory analysis to command-line inference.
 
